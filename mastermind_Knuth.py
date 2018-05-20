@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import winsound
 
 S = []
 add = [0, 0]
@@ -128,4 +127,3 @@ def game():
 
 
 game()
-winsound.Beep(2500, 500)
