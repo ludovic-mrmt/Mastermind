@@ -125,5 +125,4 @@ def game():
     else:
         print("The computer lost")
 
-
 game()
