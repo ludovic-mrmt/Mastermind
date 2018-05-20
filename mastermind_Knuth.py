@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import winsound
 
 S = []
 add = [0, 0]
@@ -48,49 +49,83 @@ def guess(propo, sol):
     return black_peg, white_peg
 
 
-print(guess(1122, 1345))
-
-
-def algo(propo, sol):
+def algo(propo, sol, listS):
+    newS = []
     black = guess(propo, sol)[0]
-    white = guess(propo, sol)[1]
     if black == 4:
-        print("Won")
+        return [propo]
     else:
-        for i in S:
-            if guess(i, propo) != guess(propo, sol):
-                S.remove(i)
+        for i in listS:
+            if guess(i, propo) == guess(propo, sol):
+                newS.append(i)
+        return newS
 
 
-def Zg(g):
-    Zgg = []
-    for s in S:
-        Zgg.append(guess(g, s))
-    return Zgg
+def minimax(g, newS):
+    peg_scores = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2),
+                  (3, 0), (4, 0)]
+    max = 0
+    for z in peg_scores:
+        compt = 0
+        for s in newS:
+            if guess(g, s) != z:
+                compt += 1
+        eliminate = len(newS) - compt
+        if eliminate > max:
+            max = eliminate
+    return max
 
 
-def G(g, z):
-    Ggz = []
-    for s in S:
-        if guess(g, s) != z:
-            Ggz.append(s)
-    return len(Ggz)
-
-
-def H(g):
-    Hg = []
-    for z in Zg(g):
-        Hg.append(G(g, z))
-    return min(Hg)
-
-
-def minimax():
-    nextplay = 0
-    check = 0
+def nextPlay(newS):
+    list = [1296, 0]
     for g in code1296:
-        if H(g) > check:
-            nextplay == g
-    print(nextplay)
+        if minimax(g, newS) < list[0]:
+            list[0] = minimax(g, newS)
+            list[1] = g
+        elif minimax(g, newS) == list[0]:
+            if g in newS and list[1] not in newS:
+                list[1] = g
+            elif g not in newS and list[1] in newS:
+                list[1]
+            elif g in newS and list[1] in newS:
+                if g < list[1]:
+                    list[1] = g
+            elif g not in newS and list[1] not in newS:
+                if g < list[1]:
+                    list[1] = g
+    return list[1]
 
-algo(1122, 1345)
-minimax()
+
+def game():
+    print("-----Start-----")
+    solution = int(input("Enter your secret code : "))
+    print("---------------")
+    # solution = 2211
+    init = 1122
+    keep = True
+    tour = 1
+    print(str(tour) + " guess : " + str(init))
+    nextS = algo(init, solution, S)
+    init = nextPlay(nextS)
+    tour += 1
+    if nextS[0] == solution:
+        keep = False
+    print("---------------")
+    while keep:
+        print(str(tour) + " guess : " + str(init))
+        nextS = algo(init, solution, nextS)
+        init = nextPlay(nextS)
+        tour += 1
+        if nextS[0] == solution:
+            keep = False
+        if tour >= 6:
+            keep = False
+        print("---------------")
+    if nextS[0] == solution:
+        print("The computer found the code : " + str(nextS[0]))
+    else:
+        print("The computer lost")
+
+
+game()
+winsound.Beep(2500, 500)

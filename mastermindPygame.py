@@ -4,7 +4,6 @@ from random import randint
 
 pygame.init()
 
-
 fenetre = pygame.display.set_mode((600, 600))
 clock = pygame.time.Clock()
 
@@ -36,8 +35,6 @@ pygame.draw.circle(fenetre, rouge, (536, 232), 16)
 pygame.draw.circle(fenetre, bleu, (536, 305), 16)
 pygame.draw.circle(fenetre, vert, (536, 378), 16)
 pygame.draw.circle(fenetre, jaune, (536, 451), 16)
-
-
 
 
 def master(propo, solutions):
@@ -102,7 +99,7 @@ def game_loop():
     sol4 = solutions[3]
     print(solutions)
     crashed = False
-    win=False
+    win = False
     loose = False
     tour = 0
     while not crashed:
@@ -140,7 +137,7 @@ def game_loop():
                 if 383 > mouse[0] > 351 and 587 > mouse[1] > 555:
                     fenetre.blit(fond, (351, 555), pygame.Rect(351, 555, 35, 35))
                 if 600 > mouse[0] > 474 and 600 > mouse[1] > 543 and pos == 100:
-                    print(sol1,sol2,sol3,sol4,solutions)
+                    print(sol1, sol2, sol3, sol4, solutions)
                     solutions = [sol1, sol2, sol3, sol4]
                     print(solutions)
                     pygame.draw.circle(fenetre, fenetre.get_at((232, 571)), (194, 482 - 57 * tour), 16)
@@ -168,7 +165,7 @@ def game_loop():
                     for i in range(1, checker[1] + 1):
                         pygame.draw.circle(fenetre, blanc, position[i - 1 + ind_pos], 7)
                     tour += 1
-                    if 9-tour == 0:
+                    if 9 - tour == 0:
                         crashed = True
                         loose = True
             if event.type == pygame.MOUSEMOTION:

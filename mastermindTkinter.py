@@ -8,7 +8,6 @@ except ImportError:
     # for Python3
     from tkinter import *
 
-# from tkinter import *
 from random import *
 
 window = Tk()
@@ -16,7 +15,7 @@ window = Tk()
 pos = 0
 tour = 5
 
-
+# Fonctions qui créent les cercles lorsqu'on appuie sur un bouton
 def btnBlue(this, btn):
     global pos
     if not pos >= 4:
@@ -77,6 +76,7 @@ def btnWhite(this, btn):
         btn.config(state=NORMAL)
 
 
+# Fonction principale qui s'active lorsqu'on appuie sur validé
 def master(sol, canOut, canIn, btn):
     global tour
     listColors = []
@@ -86,6 +86,7 @@ def master(sol, canOut, canIn, btn):
     for p in range(0, len(sol)):
         solutions.append(sol[p])
     i = 0
+    # bpbc = bonne place bonne couleur; mpbc = mauvaise place bonne couleur
     bpbc = 0
     mpbc = 0
     while i < 4:
@@ -148,7 +149,7 @@ def master(sol, canOut, canIn, btn):
                 canIn.create_oval(10 + 50 * ind, 10, 40 + 50 * ind, 40, fill=k)
                 ind += 1
 
-
+# Fonction qui initialise la fenêtre
 def init():
     global pos
     pos = 0
@@ -226,7 +227,7 @@ def init():
     btnValid.config(state=DISABLED)
     btnValid.pack(side=RIGHT, fill=BOTH)
 
-
+# Fonction qui réinitialise
 def reinit(F1, F2, F3, F4):
     F1.destroy()
     F2.destroy()
