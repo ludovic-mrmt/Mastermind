@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+On utilisera la notation qui est décrite dans l'article de Knuth i.e. les six couleurs sont remplacées
+par les chiffres de 1 à 6. Ainsi '1111' signifie 'rouge rouge rouge rouge' par exemple.
+"""
+# Création de la liste des 1296 possibilités
 S = []
 add = [0, 0]
 for i in range(1, 7):
@@ -11,6 +16,7 @@ for i in range(1, 7):
 code1296 = S
 
 
+# Fonction qui retourne le nombre de pions à la bonne/mauvaise place et bonne couleur
 def guess(propo, sol):
     solution = list(str(sol))
     sol1 = solution[0]
@@ -47,7 +53,7 @@ def guess(propo, sol):
     solution[3] = sol4
     return black_peg, white_peg
 
-
+# Fonction qui retourne une liste des solutions possibles qu'il reste
 def algo(propo, sol, listS):
     newS = []
     black = guess(propo, sol)[0]
@@ -59,7 +65,7 @@ def algo(propo, sol, listS):
                 newS.append(i)
         return newS
 
-
+# Méthode qui permet de récuperer le meilleure score d'un code
 def minimax(g, newS):
     peg_scores = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2),
                   (3, 0), (4, 0)]
@@ -74,7 +80,7 @@ def minimax(g, newS):
             max = eliminate
     return max
 
-
+# Fonction qui trouve le meilleur pion qui sera joué au prochain tour
 def nextPlay(newS):
     list = [1296, 0]
     for g in code1296:
