@@ -67,7 +67,8 @@ def algo(propo, sol, listS):
 
 # Méthode qui permet de récuperer le meilleure score d'un code
 def minimax(g, newS):
-    peg_scores = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2),
+    peg_scores = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0),
+                  (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2),
                   (3, 0), (4, 0)]
     max = 0
     for z in peg_scores:
@@ -91,11 +92,8 @@ def nextPlay(newS):
             if g in newS and list[1] not in newS:
                 list[1] = g
             elif g not in newS and list[1] in newS:
-                list[1]
-            elif g in newS and list[1] in newS:
-                if g < list[1]:
-                    list[1] = g
-            elif g not in newS and list[1] not in newS:
+                list[1] = list[1]
+            else:
                 if g < list[1]:
                     list[1] = g
     return list[1]
@@ -111,23 +109,26 @@ def game():
     tour = 1
     print(str(tour) + " guess : " + str(init))
     nextS = algo(init, solution, S)
-    init = nextPlay(nextS)
-    tour += 1
-    if nextS[0] == solution:
+    if 1122 == solution:
         keep = False
+    else:
+        tour += 1
+        init = nextPlay(nextS)
+        if nextS[0] == solution and len(nextS) == 1:
+            keep = False
     print("---------------")
     while keep:
         print(str(tour) + " guess : " + str(init))
         nextS = algo(init, solution, nextS)
         init = nextPlay(nextS)
         tour += 1
-        if nextS[0] == solution:
+        if nextS[0] == solution and len(nextS) == 1:
             keep = False
-        if tour >= 6:
+        if tour >= 5:
             keep = False
         print("---------------")
     if nextS[0] == solution:
-        print("The computer found the code : " + str(nextS[0]))
+        print("The computer found the code : " + str(nextS[0]) + " in " + str(tour) + " guess !")
     else:
         print("The computer lost")
 
